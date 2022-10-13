@@ -68,7 +68,7 @@ def execute_algorithm(inputs, signature_hash, workload_id, pubkey):
 
     result = human.query_execution_status(workload, signature, pub_key)
     try:
-        # if result['status'] == 'Running':
+        if result['status'] == 'Running':
             try:
                 docker_client = docker.from_env() 
                 print(docker_client)
@@ -88,7 +88,7 @@ def execute_algorithm(inputs, signature_hash, workload_id, pubkey):
                 return int(container)
             except:
                 return {"error": "docker image running failed"}
-        # else:
-        #     return "error"
+        else:
+            return {"error": "The execution is completed"}
     except:
         return "error:no such workload"
